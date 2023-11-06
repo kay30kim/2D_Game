@@ -60,4 +60,3 @@ This is a simple 2D game project, where you'll create a basic game using the Min
 - You're encouraged to create test programs for your project for testing and defense.
 - The project is submitted to an assigned Git repository for grading.
 
-Please refer to the project documentation for more details and specific guidelines.
