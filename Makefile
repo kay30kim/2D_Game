@@ -6,7 +6,7 @@
 #    By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 12:17:03 by kyung-ki          #+#    #+#              #
-#    Updated: 2023/11/07 13:07:50 by kyung-ki         ###   ########.fr        #
+#    Updated: 2023/11/11 13:48:31 by kyung-ki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ VPATH	=	$(SRC_DIR)
 MLX		=	-framework Cocoa -framework OpenGL -framework IOKit MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/kyung-ki/.brew/lib"
 
 SRC_DIR	=	src
-SRCS	=	main.c
-#OBJS	=	$(SRCS:.c=.o)
+SRCS	=	main.c graphics.c map_check.c map.c
+
 MK		=	mkdir -p
 BIN_DIR =	bin
 BIN		=	$(addprefix $(BIN_DIR)/, $(SRCS:.c=.o))

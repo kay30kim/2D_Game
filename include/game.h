@@ -6,20 +6,27 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:49:14 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/09 20:24:36 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/11 12:45:09 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "MLX42/include/MLX42/MLX42.h"
 
-#define ERROR_MSG_ARG			"[ERROR] You need one argument"
-#define ERROR_MSG_FILENO		"[ERROR] Invalid file"
-#define ERROR_MSG_EXTENSION		"[ERROR] It is not .ber file"
-#define ERROR_MSG_NOFILE		"[ERROR] There is no file name"
-#define ERROR_MSG_OPEN			"[ERROR] Can't open the map"
-#define ERROR_MSG_INIT			"[ERROR] Initialization is failed"
-#define BUFFER_SIZE				10000
+# define ERROR_MSG_ARG			"[ERROR] You need one argument"
+# define ERROR_MSG_FILENO		"[ERROR] Invalid file"
+# define ERROR_MSG_EXTENSION		"[ERROR] It is not .ber file"
+# define ERROR_MSG_NOFILE		"[ERROR] There is no file name"
+# define ERROR_MSG_OPEN			"[ERROR] Can't open the map"
+# define ERROR_MSG_INIT			"[ERROR] Initialization is failed"
+
+# define BUFFER_SIZE				10000
+
+# define MAP_COLLECTABLE		'C'
+# define MAP_WALL				'1'
+# define MAP_FLOOR				'0'
+# define MAP_EXIT				'E'
+# define MAP_ENTRY				'P'
 
 #ifndef TRUE
 #define TRUE 1
