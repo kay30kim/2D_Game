@@ -6,16 +6,16 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:01:22 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/10/25 14:44:42 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:38:06 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, t_size_t n)
+void	ft_bzero(void *s, size_t n)
 {
 	char		*ptr;
-	t_size_t	i;
+	size_t	i;
 
 	if (!s)
 		return ;

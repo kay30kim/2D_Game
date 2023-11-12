@@ -6,100 +6,99 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:48:46 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/11 13:43:20 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:59:53 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
-#include "libft.h"
 
-void	check_collect(t_sGameImg *gameImg)
+void	check_collect(t_gameimg *gameimg)
 {
-	if (gameImg->map[gameImg->pImg->man->instances->y / 32][gameImg->pImg->man->instances->x / 32] == MAP_COLLECTABLE)
+	if (gameimg->map[gameimg->p_img->man->instances->y / MOVE]
+		[gameimg->p_img->man->instances->x / MOVE] == MAP_COLLECTABLE)
 	{
-		delete_dot(gameImg);
-		gameImg->map[gameImg->pImg->man->instances->y / 32][gameImg->pImg->man->instances->x / 32] = MAP_FLOOR;
-		gameImg->collectCnt++;
-		if (gameImg->collectCnt == gameImg->nTotalCollect)
-			gameImg->pImg->exit->instances->enabled = false;
+		delete_dots(gameimg);
+		gameimg->map[gameimg->p_img->man->instances->y / MOVE]
+		[gameimg->p_img->man->instances->x / MOVE] = MAP_FLOOR;
+		gameimg->collect_cnt++;
+		if (gameimg->collect_cnt == gameimg->total_collect)
+			gameimg->p_img->exit->instances->enabled = false;
 	}
-	else if (gameImg->map[gameImg->pImg->man->instances->y / 32][gameImg->pImg->man->instances->x / 32] == MAP_EXIT)
+	else if (gameimg->map[gameimg->p_img->man->instances->y / MOVE]
+		[gameimg->p_img->man->instances->x / MOVE] == MAP_EXIT)
 	{
-		if (gameImg->collectCnt == gameImg->nTotalCollect)
-			mlx_close_window(gameImg->mlx);
+		if (gameimg->collect_cnt == gameimg->total_collect)
+			mlx_close_window(gameimg->mlx);
 	}
 }
 
 void	ft_key(mlx_key_data_t keydata, void *param)
 {
-	t_sGameImg *gameImg;
+	t_gameimg	*gameimg;
 
-	gameImg = param;
+	gameimg = param;
 	if ((keydata.key == MLX_KEY_W && keydata.action == MLX_RELEASE)
 		|| (keydata.key == MLX_KEY_UP && keydata.action == MLX_RELEASE))
-		move_up(gameImg);
+		move_up(gameimg);
 	if ((keydata.key == MLX_KEY_D && keydata.action == MLX_RELEASE)
 		|| (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_RELEASE))
-		move_right(gameImg);
+		move_right(gameimg);
 	if ((keydata.key == MLX_KEY_S && keydata.action == MLX_RELEASE)
 		|| (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_RELEASE))
-		move_down(gameImg);
+		move_down(gameimg);
 	if ((keydata.key == MLX_KEY_A && keydata.action == MLX_RELEASE)
 		|| (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_RELEASE))
-		move_left(gameImg);
+		move_left(gameimg);
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_RELEASE)
-		mlx_close_window(gameImg->mlx);
-	check_collect(gameImg);
+		mlx_close_window(gameimg->mlx);
+	check_collect(gameimg);
 }
 
-int	init_game(t_sGameImg *gameImg)
+int	init_game(t_gameimg *gameimg)
 {
-	gameImg->moveCnt = 0;
-	gameImg->collectCnt = 0;
-	if (!(gameImg->mlx = mlx_init(gameImg->width, gameImg->height
-				, "so_long", TRUE)));
+	gameimg->move_cnt = 0;
+	gameimg->collect_cnt = 0;
+	gameimg->mlx = mlx_init(gameimg->width, gameimg->height, "so_long", TRUE);
+	if (!(gameimg->mlx))
 	{
 		puts(mlx_strerror(mlx_errno));
-		return(FALSE);
+		return (FALSE);
 	}
 	return (TRUE);
 }
 
-void	go_game(t_sGameImg *gameImg)
+void	go_game(t_gameimg *gameimg)
 {
-	get_textures(gameImg);
-	get_images(gameImg);
-	draw_map(gameImg, gameImg->pImg);
-	mlx_key_hook(gameImg->mlx, &ft_key, gameImg);
-	mlx_loop(gameImg->mlx);
-	mlx_terminate(gameImg->mlx);
-	free_map(gameImg->map);
-	free(gameImg->pText);
-	free(gameImg->pImg);
+	get_textures(gameimg);
+	get_images(gameimg);
+	draw_map(gameimg, gameimg->p_img);
+	mlx_key_hook(gameimg->mlx, &ft_key, gameimg);
+	mlx_loop(gameimg->mlx);
+	mlx_terminate(gameimg->mlx);
+	free_map(gameimg->map);
+	free(gameimg->p_text);
+	free(gameimg->p_img);
 }
 
 int	main(int argc, char **argv)
 {
-	t_sGameImg	gameImg;
+	printf("aaa");
+	t_gameimg	gameimg;
 	int			fd;
 
 	if (argc != 2)
 		return (ft_printf(ERROR_MSG_ARG));
 	if (!check_extension(argv[1]))
 		return (ft_printf(ERROR_MSG_EXTENSION));
-	ft_bzero(&gameImg, sizeof(t_sGameImg));
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		return (ft_printf(ERROR_MSG_FILENO));
-	gameImg.map = read_map(argv[1], fd);
-	if (!gameImg.map)
+	gameimg.map = read_map(argv[1], &fd);
+	if (!gameimg.map)
 		return (ft_printf(ERROR_MSG_OPEN));
-	set_mapsize(gameImg, gameImg.map); // 32 check
-	if (valid_path(&gameImg, argv[1]) == FALSE)
-		return (free_map(gameImg.map), 1);
-	if (init_game(&gameImg) == FALSE)
+	set_mapsize(&gameimg, gameimg.map);
+	if (valid_path(&gameimg, fd) == FALSE)
+		return (free_map(gameimg.map), 1);
+	if (init_game(&gameimg) == FALSE)
 		return (ft_printf(ERROR_MSG_INIT));
 	else
-		go_game(&gameImg);
+		go_game(&gameimg);
 	return (0);
 }

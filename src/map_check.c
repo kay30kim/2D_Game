@@ -6,13 +6,13 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:26:39 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/09 15:42:05 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:18:18 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
-int get_total_collect(t_sGameImg *gameImg)
+int	get_total_collect(t_gameimg *gameImg)
 {
 	int	total;
 	int	i;
@@ -32,4 +32,60 @@ int get_total_collect(t_sGameImg *gameImg)
 		i++;
 	}
 	return (total);
+}
+
+void	flood_map(t_gameimg *gameImg, int i, int j)
+{
+	if (!(i < 1 || j < 1 || j >= gameImg->width || i > gameImg->height
+			|| gameImg->tmp[i][j] == '1' || gameImg->tmp[i][j] == 'X'))
+	{
+		gameImg->tmp[i][j] = 'X';
+		flood_map(gameImg, i + 1, j);
+		flood_map(gameImg, i - 1, j);
+		flood_map(gameImg, i, j + 1);
+		flood_map(gameImg, i, j - 1);
+	}
+}
+
+int	*start_position(char **map)
+{
+	int	i;
+	int	j;
+	int	*pos;
+
+	pos = (int *)ft_calloc(2, sizeof(int));
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == MAP_ENTRY)
+			{
+				pos[0] = i;
+				pos[1] = j;
+			}
+			j++;
+		}
+		i++;
+	}
+	return (pos);
+}
+
+int	valid_path(t_gameimg *gameImg, int fd)
+{
+	int	*pos;
+
+	gameImg->tmp = read_map(fd);
+	pos = start_position(gameImg->tmp);
+	flood_map(gameImg, pos[0], pos[1]);
+	if (check_flood(gameImg->tmp) == FALSE)
+	{
+		free(pos);
+		free_map(gameImg->tmp);
+		return (ft_printf(ERROR_MSG_PATH), FALSE);
+	}
+	free(pos);
+	free_map(gameImg->tmp);
+	return (TRUE);
 }

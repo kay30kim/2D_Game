@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 14:15:00 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/12 16:20:57 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:35:55 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		ft_memcmp(const void *s1, const void *s2, t_size_t n);
 void	*ft_memcpy(void *dst, const void *src, t_size_t n);
 void	*ft_memmove(void *dst, const void *src, t_size_t len);
 void	*ft_memset(void *b, int c, size_t len);
-void	ft_bzero(void *s, t_size_t n);
+void	ft_bzero(void *s, size_t n);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
