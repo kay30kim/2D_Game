@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:26:39 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/12 16:18:18 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/13 12:27:17 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ int	*start_position(char **map)
 	return (pos);
 }
 
-int	valid_path(t_gameimg *gameImg, int fd)
+int	valid_path(t_gameimg *gameImg, char *map)
 {
 	int	*pos;
 
-	gameImg->tmp = read_map(fd);
+	gameImg->tmp = read_map(map);
 	pos = start_position(gameImg->tmp);
 	flood_map(gameImg, pos[0], pos[1]);
 	if (check_flood(gameImg->tmp) == FALSE)

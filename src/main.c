@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:48:46 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/12 16:59:53 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/13 14:03:44 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,17 @@ int	main(int argc, char **argv)
 {
 	printf("aaa");
 	t_gameimg	gameimg;
-	int			fd;
-
 	if (argc != 2)
 		return (ft_printf(ERROR_MSG_ARG));
 	if (!check_extension(argv[1]))
 		return (ft_printf(ERROR_MSG_EXTENSION));
-	gameimg.map = read_map(argv[1], &fd);
+		
+	gameimg.map = read_map(argv[1]);
+	
 	if (!gameimg.map)
 		return (ft_printf(ERROR_MSG_OPEN));
 	set_mapsize(&gameimg, gameimg.map);
-	if (valid_path(&gameimg, fd) == FALSE)
+	if (valid_path(&gameimg, argv[1]) == FALSE)
 		return (free_map(gameimg.map), 1);
 	if (init_game(&gameimg) == FALSE)
 		return (ft_printf(ERROR_MSG_INIT));

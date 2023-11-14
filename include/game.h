@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:49:14 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/12 16:59:34 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/13 12:29:49 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,11 @@ int					init_game(t_gameimg *gameImg);
 void				go_game(t_gameimg *gameImg);
 int					get_total_collect(t_gameimg *gameImg);
 int					check_extension(const char *str);
-char				**read_map(char *script_map, int *fd);
+char				**read_map(char *script_map);
 void				set_mapsize(t_gameimg *gameImg, char **map);
 void				free_map(char **map);
 void				delete_dots(t_gameimg *gameImg);
-int					valid_path(t_gameimg *gameImg, int fd);
+int					valid_path(t_gameimg *gameImg, char *map);
 int					*start_position(char **map);
 void				flood_map(t_gameimg *gameImg, int i, int j);
 void				move_up(t_gameimg *gameImg);

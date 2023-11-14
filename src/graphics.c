@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:05:52 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/12 16:18:07 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/13 14:34:03 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	get_textures(t_gameimg *gameImg)
 {
 	gameImg->p_text = ft_calloc(1, sizeof(t_texture));
 	gameImg->p_text->floor = mlx_load_png("./textures/floor.png");
-	gameImg->p_text->wall = mlx_load_png("");
-	gameImg->p_text->collect = mlx_load_png("");
-	gameImg->p_text->man = mlx_load_png("");
-	gameImg->p_text->exit = mlx_load_png("");
+	gameImg->p_text->wall = mlx_load_png("./textures/wall.png");
+	gameImg->p_text->collect = mlx_load_png("./textures/Spark.png");
+	gameImg->p_text->man = mlx_load_png("./textures/Mago.png");
+	gameImg->p_text->exit = mlx_load_png("./textures/Salida.png");
 }
 
 void	get_images(t_gameimg *gameImg)

@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:49:06 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/12 16:59:22 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/13 12:29:22 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,24 @@ int	check_extension(const char *str)
 	return (TRUE);
 }
 
-char	**read_map(char *script_map, int *fd)
+char	**read_map(char *script_map)
 {
 	char	*temp_map;
 	char	**map;
 	int		n;
+	int		fd;
 
 	n = 0;
 	temp_map = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!temp_map)
 		return (0);
-	*fd = open(script_map, O_RDONLY);
+	fd = open(script_map, O_RDONLY);
 	if (fd < 0)
 	{
 		free(temp_map);
 		return (0);
 	}
-	n = read(*fd, temp_map, BUFFER_SIZE);
+	n = read(fd, temp_map, BUFFER_SIZE);
 	if (n == -1 || n == 0)
 	{
 		free(temp_map);
@@ -55,7 +56,7 @@ char	**read_map(char *script_map, int *fd)
 	}
 	map = ft_split(temp_map, '\n');
 	free(temp_map);
-	close(*fd);
+	close(fd);
 	return (map);
 }
 
