@@ -6,7 +6,7 @@
 #    By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/07 12:17:03 by kyung-ki          #+#    #+#              #
-#    Updated: 2023/11/12 13:58:45 by kyung-ki         ###   ########.fr        #
+#    Updated: 2023/11/18 14:59:01 by kyung-ki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,9 @@ OBJS	=	${SRCS:.c=.o}
 #BIN_DIR =	bin
 #BIN		=	$(addprefix $(BIN_DIR)/, $(SRCS:.c=.o))
 INCLUDE	=	include
+USERS	=	$(shell whoami)
 
-LIBGL	=	-lglfw -L"/Users/kyung-ki/.brew/lib"
+LIBGL	=	-lglfw -L"/Users/$(USERS)/.brew/lib"
 LIBFT	=	./library/libft
 LIBMLX	=	./library/MLX42
 LIBPF	=	./library/ft_printf
@@ -62,18 +63,18 @@ $(NAME) : $(OBJS)
 #	$(CC) $(CFLAGS) -Iinclude -I./ $(MLX) $(NAME) $(BIN) src/main.c
 
 clean : 
-	rm -rf $(BIN)
+	rm -rf $(OBJS)
 	$(MAKE) -C $(LIBFT) clean
-	$(MAKE) -C $(LIBMLX) clean
 	$(MAKE) -C $(LIBPF) clean
 	$(MAKE) -C $(LIBGNL) clean
+#	$(MAKE) -C $(LIBMLX) clean
 
 fclean : clean
 	rm -rf $(NAME)
 	$(MAKE) -C $(LIBFT) fclean
-	$(MAKE) -C $(LIBMLX) fclean
 	$(MAKE) -C $(LIBPF) fclean
 	$(MAKE) -C $(LIBGNL) fclean
+#	$(MAKE) -C $(LIBMLX) fclean
 
 re : fclean all
 

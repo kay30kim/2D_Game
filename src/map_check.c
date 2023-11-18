@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:26:39 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/13 12:27:17 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/18 14:29:00 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,31 @@ int	valid_path(t_gameimg *gameImg, char *map)
 	free(pos);
 	free_map(gameImg->tmp);
 	return (TRUE);
+}
+
+int	check_map(t_gameimg *game_img, int cnt_entry, int cnt_exit, int cnt_col)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (game_img->map[++i])
+	{
+		j = 0;
+		while (game_img->map[i][j])
+		{
+			if (game_img->map[i][j] == MAP_ENTRY)
+				cnt_entry += 1;
+			if (game_img->map[i][j] == MAP_EXIT)
+				cnt_exit += 1;
+			if (game_img->map[i][j] == MAP_COLLECTABLE)
+				cnt_col += 1;
+			j++;
+		}
+		if (j != game_img->width / MOVE)
+			return (0);
+	}
+	if (cnt_entry != 1 || cnt_exit != 1 || cnt_col < 1)
+		return (0);
+	return (1);
 }

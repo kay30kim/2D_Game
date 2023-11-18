@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:49:06 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/13 12:29:22 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/18 14:34:26 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,74 +33,29 @@ int	check_extension(const char *str)
 
 char	**read_map(char *script_map)
 {
-	char	*temp_map;
 	char	**map;
+	char	*buf;
+	char	*tmp;
 	int		n;
 	int		fd;
 
 	n = 0;
-	temp_map = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (!temp_map)
-		return (0);
 	fd = open(script_map, O_RDONLY);
 	if (fd < 0)
-	{
-		free(temp_map);
 		return (0);
-	}
-	n = read(fd, temp_map, BUFFER_SIZE);
-	if (n == -1 || n == 0)
+	tmp = NULL;
+	buf = NULL;
+	while (n == 0 || tmp != NULL)
 	{
-		free(temp_map);
-		return (0);
+		n = 1;
+		tmp = get_next_line(fd);
+		buf = ft_strjoin2(buf, tmp);
 	}
-	map = ft_split(temp_map, '\n');
-	free(temp_map);
+	map = ft_split(buf, '\n');
+	free(buf);
 	close(fd);
 	return (map);
 }
-
-/*
-char	**read_map(char *script_map, int *fd)
-{
-	char	*line;
-	char	**map;
-
-	line = NULL;
-	map = NULL;
-	*fd = open(script_map, O_RDONLY);
-	if (*fd < 0)
-		return (NULL);
-	while ((line = get_next_line(*fd)) != NULL)
-	{
-		map = ft_strarr_add(map, line);
-		free(line);
-	}
-	close(*fd);
-	return (map);
-}*/
-
-// char	**read_map(int fd)
-// {
-// 	char	*tmp;
-// 	char	**map;
-// 	int		n;
-
-// 	n = 0;
-// 	tmp = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-// 	if (!tmp)
-// 		return (NULL);
-// 	n = read(fd, tmp, BUFFER_SIZE);
-// 	if (n == -1 || n == 0)
-// 	{
-// 		free(tmp);
-// 		return (NULL);
-// 	}
-// 	map = ft_split(tmp, '\n');
-// 	free(tmp);
-// 	close(fd);
-// 	return (map);
-// }
 
 void	set_mapsize(t_gameimg *gameImg, char **map)
 {
@@ -146,3 +101,46 @@ void	delete_dots(t_gameimg *gameImg)
 		i++;
 	}
 }
+
+
+/*
+char	**read_map(char *script_map, int *fd)
+{
+	char	*line;
+	char	**map;
+
+	line = NULL;
+	map = NULL;
+	*fd = open(script_map, O_RDONLY);
+	if (*fd < 0)
+		return (NULL);
+	while ((line = get_next_line(*fd)) != NULL)
+	{
+		map = ft_strarr_add(map, line);
+		free(line);
+	}
+	close(*fd);
+	return (map);
+}*/
+
+// char	**read_map(int fd)
+// {
+// 	char	*tmp;
+// 	char	**map;
+// 	int		n;
+
+// 	n = 0;
+// 	tmp = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+// 	if (!tmp)
+// 		return (NULL);
+// 	n = read(fd, tmp, BUFFER_SIZE);
+// 	if (n == -1 || n == 0)
+// 	{
+// 		free(tmp);
+// 		return (NULL);
+// 	}
+// 	map = ft_split(tmp, '\n');
+// 	free(tmp);
+// 	close(fd);
+// 	return (map);
+// }

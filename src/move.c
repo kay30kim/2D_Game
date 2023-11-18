@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 13:55:08 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/12 16:18:29 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/18 14:33:00 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	move_down(t_gameimg *gameImg)
 void	move_left(t_gameimg *gameImg)
 {
 	if (gameImg->map[gameImg->p_img->man->instances->y / MOVE]
-		[gameImg->p_img->man->instances->x / MOVE + 1] != MAP_WALL)
+		[gameImg->p_img->man->instances->x / MOVE - 1] != MAP_WALL)
 	{
 		gameImg->p_img->man->instances->x -= MOVE;
 		gameImg->move_cnt++;
