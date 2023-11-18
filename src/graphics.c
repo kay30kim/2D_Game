@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:05:52 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/18 13:18:33 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/18 15:29:49 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,17 @@ void	draw_floor(t_gameimg *gameImg, t_image *image)
 	while (gameImg->map[i])
 	{
 		j = 0;
-		//printf("%s\n",gameImg->map[i]);
 		while (gameImg->map[i][j])
 		{
-			// printf("%d %d %d %d\n",gameImg->height, gameImg->width, i * MOVE, j * MOVE);
-			mlx_image_to_window(gameImg->mlx, image->floor, j * MOVE, i * MOVE);
+			mlx_image_to_window(gameImg->mlx, image->floor,
+				j * MOVE, i * MOVE);
 			if (gameImg->map[i][j] == MAP_WALL)
-				mlx_image_to_window(gameImg->mlx, image->wall, j * MOVE, i * MOVE);
+				mlx_image_to_window(gameImg->mlx, image->wall,
+					j * MOVE, i * MOVE);
 			if (gameImg->map[i][j] == MAP_EXIT)
 			{
-				mlx_image_to_window(gameImg->mlx, image->exit, j * MOVE, i * MOVE);
+				mlx_image_to_window(gameImg->mlx, image->exit,
+					j * MOVE, i * MOVE);
 			}
 			j++;
 		}
@@ -81,11 +82,31 @@ void	draw_map(t_gameimg *gameImg, t_image *image)
 		while (gameImg->map[i][j])
 		{
 			if (gameImg->map[i][j] == 'C')
-				mlx_image_to_window(gameImg->mlx, image->collect, j * MOVE, i * MOVE);
+				mlx_image_to_window(gameImg->mlx, image->collect,
+					j * MOVE, i * MOVE);
 			if (gameImg->map[i][j] == 'P')
-				mlx_image_to_window(gameImg->mlx, image->man, j * MOVE, i * MOVE);
+				mlx_image_to_window(gameImg->mlx, image->man,
+					j * MOVE, i * MOVE);
 			j++;
 		}
 		i++;
+	}
+}
+
+void	check_collect(t_gameimg *gameimg)
+{
+	if (gameimg->map[gameimg->p_img->man->instances->y / MOVE]
+		[gameimg->p_img->man->instances->x / MOVE] == MAP_COLLECTABLE)
+	{
+		delete_dots(gameimg);
+		gameimg->map[gameimg->p_img->man->instances->y / MOVE]
+		[gameimg->p_img->man->instances->x / MOVE] = MAP_FLOOR;
+		gameimg->collect_cnt++;
+	}
+	else if (gameimg->map[gameimg->p_img->man->instances->y / MOVE]
+		[gameimg->p_img->man->instances->x / MOVE] == MAP_EXIT)
+	{
+		if (gameimg->collect_cnt == gameimg->total_collect)
+			mlx_close_window(gameimg->mlx);
 	}
 }

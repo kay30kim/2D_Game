@@ -6,31 +6,13 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:48:46 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/18 14:37:57 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/18 15:56:12 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//	if (gameimg->collect_cnt == gameimg->total_collect)
+//		gameimg->p_img->exit->instances->enabled = false;
 #include "game.h"
-
-void	check_collect(t_gameimg *gameimg)
-{
-	if (gameimg->map[gameimg->p_img->man->instances->y / MOVE]
-		[gameimg->p_img->man->instances->x / MOVE] == MAP_COLLECTABLE)
-	{
-		delete_dots(gameimg);
-		gameimg->map[gameimg->p_img->man->instances->y / MOVE]
-		[gameimg->p_img->man->instances->x / MOVE] = MAP_FLOOR;
-		gameimg->collect_cnt++;
-	//	if (gameimg->collect_cnt == gameimg->total_collect)
-	//		gameimg->p_img->exit->instances->enabled = false;
-	}
-	else if (gameimg->map[gameimg->p_img->man->instances->y / MOVE]
-		[gameimg->p_img->man->instances->x / MOVE] == MAP_EXIT)
-	{
-		if (gameimg->collect_cnt == gameimg->total_collect)
-			mlx_close_window(gameimg->mlx);
-	}
-}
 
 void	ft_key(mlx_key_data_t keydata, void *param)
 {
@@ -75,7 +57,16 @@ void	go_game(t_gameimg *gameimg)
 	mlx_key_hook(gameimg->mlx, &ft_key, gameimg);
 	mlx_loop(gameimg->mlx);
 	mlx_terminate(gameimg->mlx);
-	free_map(gameimg->map);
+}
+
+void	destroy_game(t_gameimg *gameimg)
+{
+	int	i;
+
+	i = -1;
+	while (gameimg->map[++i])
+		free(gameimg->map[i]);
+	free(gameimg->map);
 	free(gameimg->p_text);
 	free(gameimg->p_img);
 }
@@ -83,6 +74,7 @@ void	go_game(t_gameimg *gameimg)
 int	main(int argc, char **argv)
 {
 	t_gameimg	gameimg;
+
 	if (argc != 2)
 		return (ft_printf(ERROR_MSG_ARG));
 	if (!check_extension(argv[1]))
@@ -99,5 +91,6 @@ int	main(int argc, char **argv)
 		return (ft_printf(ERROR_MSG_INIT));
 	else
 		go_game(&gameimg);
+	destroy_game(&gameimg);
 	return (0);
 }

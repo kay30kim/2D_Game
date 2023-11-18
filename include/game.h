@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:49:14 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/18 13:55:56 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/18 15:06:34 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct Textures
 	mlx_texture_t	*collect;
 	mlx_texture_t	*man;
 	mlx_texture_t	*exit;
-} t_texture;
+}	t_texture;
 
 typedef struct Images
 {
@@ -63,7 +63,7 @@ typedef struct Images
 	mlx_image_t		*man;
 	mlx_image_t		*exit;
 	mlx_image_t		*exit_2;
-} t_image;
+}	t_image;
 
 typedef struct Game
 {
@@ -77,7 +77,7 @@ typedef struct Game
 	mlx_t			*mlx;
 	t_texture		*p_text;
 	t_image			*p_img;
-} t_gameimg;
+}	t_gameimg;
 
 void	get_textures(t_gameimg *gameImg);
 void	get_images(t_gameimg *gameImg);
@@ -101,6 +101,7 @@ void	move_right(t_gameimg *gameImg);
 void	move_down(t_gameimg *gameImg);
 void	move_left(t_gameimg *gameImg);
 int		check_flood(char **map);
-int		check_map(t_gameimg *game_img, int cnt_entry, int cnt_exit, int cnt_col);
+int		check_map(t_gameimg *game_img, int cnt_entry,
+			int cnt_exit, int cnt_col);
 
 #endif

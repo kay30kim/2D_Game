@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:49:06 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/18 14:34:26 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/18 15:56:24 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,21 @@ char	**read_map(char *script_map)
 	char	**map;
 	char	*buf;
 	char	*tmp;
-	int		n;
 	int		fd;
 
-	n = 0;
 	fd = open(script_map, O_RDONLY);
 	if (fd < 0)
 		return (0);
-	tmp = NULL;
+	tmp = ft_strdup("");
 	buf = NULL;
-	while (n == 0 || tmp != NULL)
+	while (tmp != NULL)
 	{
-		n = 1;
+		free(tmp);
 		tmp = get_next_line(fd);
 		buf = ft_strjoin2(buf, tmp);
 	}
 	map = ft_split(buf, '\n');
+	free(tmp);
 	free(buf);
 	close(fd);
 	return (map);
@@ -101,7 +100,6 @@ void	delete_dots(t_gameimg *gameImg)
 		i++;
 	}
 }
-
 
 /*
 char	**read_map(char *script_map, int *fd)
