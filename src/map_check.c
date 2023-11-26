@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 15:26:39 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/18 15:02:51 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:47:26 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ int	check_map(t_gameimg *game_img, int cnt_entry, int cnt_exit, int cnt_col)
 				cnt_exit += 1;
 			if (game_img->map[i][j] == MAP_COLLECTABLE)
 				cnt_col += 1;
+			if (check(game_img, i, j))
+				return (0);
 			j++;
 		}
 		if (j != game_img->width / MOVE)

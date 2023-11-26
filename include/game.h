@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 11:49:14 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/18 15:06:34 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:42:55 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # endif
 # define MOVE 32
 
-typedef struct Textures
+typedef struct s_textures
 {
 	mlx_texture_t	*floor;
 	mlx_texture_t	*wall;
@@ -55,7 +55,7 @@ typedef struct Textures
 	mlx_texture_t	*exit;
 }	t_texture;
 
-typedef struct Images
+typedef struct s_images
 {
 	mlx_image_t		*floor;
 	mlx_image_t		*wall;
@@ -65,7 +65,7 @@ typedef struct Images
 	mlx_image_t		*exit_2;
 }	t_image;
 
-typedef struct Game
+typedef struct s_game
 {
 	int				width;
 	int				height;
@@ -103,5 +103,6 @@ void	move_left(t_gameimg *gameImg);
 int		check_flood(char **map);
 int		check_map(t_gameimg *game_img, int cnt_entry,
 			int cnt_exit, int cnt_col);
+int		check(t_gameimg *game_img, int i, int j);
 
 #endif

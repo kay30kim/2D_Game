@@ -6,7 +6,7 @@
 /*   By: kyung-ki <kyung-ki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 13:55:08 by kyung-ki          #+#    #+#             */
-/*   Updated: 2023/11/18 15:29:43 by kyung-ki         ###   ########.fr       */
+/*   Updated: 2023/11/26 14:50:09 by kyung-ki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,11 @@ int	check_flood(char **map)
 {
 	int	i;
 	int	j;
+	int	height;
 
+	height = 0;
+	while (map[height])
+		height++;
 	i = 0;
 	while (map[i])
 	{
@@ -69,6 +73,11 @@ int	check_flood(char **map)
 		{
 			if (!(map[i][j] == MAP_WALL || map[i][j] == MAP_FLOOR
 					|| map[i][j] == 'X'))
+				return (FALSE);
+			if ((i == 0 && map[i][j] == MAP_FLOOR)
+			|| (j == 0 && map[i][j] == MAP_FLOOR)
+			|| (i == height - 1 && map[i][j] == MAP_FLOOR)
+			|| (j == (int)ft_strlen(map[0]) - 1 && map[i][j] == MAP_FLOOR))
 				return (FALSE);
 			j++;
 		}
