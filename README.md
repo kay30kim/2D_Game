@@ -1,5 +1,8 @@
 # 2D_Game
 
+<img width="80%" src="https://github.com/kay30kim/push-swap-algorithm/assets/59407632/95436f2e-4279-45c0-9f62-b3290315ca66">
+
+
 ## Table of Contents
 
 - [Part 1. Introduction](#part-1-introduction)
